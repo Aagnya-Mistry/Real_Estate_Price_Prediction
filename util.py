@@ -1,6 +1,7 @@
 import json
 import pickle
 import numpy as np
+import os
 
 __locations = None
 __data_columns = None
@@ -28,15 +29,17 @@ def load_saved_artifacts():
     print("Loading saved artifacts...start")
     global __data_columns
     global __locations
+    global __model
 
-    with open("C:/AJM/Coding Languages/Machine Learning with Python/Real_Estate_Price_Prediction/artifacts/columns.json",'r') as f:
+    base_path = os.path.dirname(__file__)
+    
+    with open(os.path.join(base_path, 'artifacts/columns.json'), 'r') as f:
         __data_columns = json.load(f)['data_columns']
         __locations = __data_columns[3:]
 
-    global __model
-    with open("C:/AJM/Coding Languages/Machine Learning with Python/Real_Estate_Price_Prediction/artifacts/banglore_home_prices_model.pickle",'rb') as f:
+    with open(os.path.join(base_path, 'artifacts/banglore_home_prices_model.pickle'), 'rb') as f:
         __model = pickle.load(f)
-    
+
     print("Loading saved artifacts ... done")
 
 if (__name__ ) == "__main__":
